@@ -1,62 +1,102 @@
-/*
- * @NOTE: Prepend a `~` to css file paths that are in your node_modules
- *        See https://github.com/webpack-contrib/sass-loader#imports
- */
+/* Background color for the entire page */
 body {
-  position: relative;
-  color: white;
-  height: 100vh;
-  background: linear-gradient(
-    200.96deg,
-    #fedc2a -29.09%,
-    #dd5789 51.77%,
-    #7a2c9e 129.35%
-  );
-  font-family: sans-serif;
-  overflow-y: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: #001223; /* Dark grey background */
+  color: #ffff; /* White text for better contrast */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 2%;
 }
 
-button {
-  background-color: white;
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: none;
-  appearance: none;
-  font-size: 1.3rem;
-  box-shadow: 0px 8px 28px -6px rgba(24, 39, 75, 0.12),
-    0px 18px 88px -4px rgba(24, 39, 75, 0.14);
-  transition: all ease-in 0.1s;
+h5 {
+  color: lightgray;
+}
+
+/* Table header styles */
+.statNames {
+  font-weight: bold;
+  background-color: #252628; /* Dark grey header */
+  border-top: 2px solid #23272a; /* Darker top border */
+  color: #ffff; /* White text */
+}
+
+/* Table row styles */
+.companyStats:nth-child(odd) {
+  background-color: #252628; /* Dark grey for odd rows */
+}
+
+.companyStats:nth-child(even) {
+  background-color: #313338; /* Slightly lighter grey for even rows */
+}
+
+/* General table styles */
+.statNames, .companyStats {
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid #cccc; /* Line between rows */
+  padding: 2px 0; /* Space inside the rows */
+  text-align: center;
+  border-radius: 5px; /* Rounded corners */
+}
+
+.statNames h3, .companyStats h5 {
+  flex: 1; /* Ensure equal spacing */
+  margin: 0; /* Remove default margins */
+  padding: 5px; /* Add padding for better appearance */
+  border-right: 1.5px solid #23272a; /* Column separators */
+}
+
+/* Remove border from last column */
+.statNames h3:last-child, .companyStats h5:last-child {
+  border-right: none;
+}
+
+/* Add hover effect */
+.companyStats:hover {
+  background-color: #0a1a51; /* Highlight on hover */
   cursor: pointer;
-  opacity: 0.9;
 }
 
-button:hover {
-  transform: scale(1.05);
-  opacity: 1;
-}
-
-li {
-  list-style: none;
-}
-
-a {
-  text-decoration: none;
-  height: fit-content;
-  width: fit-content;
-  margin: 10px;
-}
-
-a:hover {
-  opacity: 1;
-  text-decoration: none;
-}
-
-.Hello {
+/* StockListPage layout */
+.StockListPage {
   display: flex;
-  justify-content: center;
+}
+
+/* Table container (takes up 90% of the screen width) */
+.StockListPage {
+  display: flex; /* This arranges the table and stat card side by side */
+  justify-content: space-between; /* Optional: Adds space between them */
+  width: 78%;
+}
+
+/* Table container (takes up 80% of the screen width) */
+.table {
+  flex: 50%; /* Table will take up 80% of the width */
+  padding-right: 20px; /* Optional: Space between the table and the card */
+}
+
+/* statCard (fixed position and always visible side by side with the table) */
+.statCard {
+  position: fixed;
+  width: 20%; /* Adjust this width as necessary */
+  top: 10%; /* Slightly offset from the top of the screen */
+  left: calc(80% + 20px); /* Position it to the right of the table, adjust for any spacing */
+  background-color: #252628; /* Dark background for the card */
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  margin: 20px 0;
+  color: #ffff;
+  z-index: 1000; /* Ensure it's on top of other content */
+}
+
+/* Styling for the card content */
+.statCard h2 {
+  margin-bottom: 10px;
+}
+
+.statCard p {
+  margin: 5px 0;
+  font-size: 14px;
 }
