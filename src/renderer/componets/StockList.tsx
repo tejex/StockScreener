@@ -6,20 +6,19 @@ const StockList = () => {
     const [data, setData] = useState<StockItemInterface[]>([
         {
             Ticker: '',
-            OHLC: 0,
+            OHLC: [0, 0, 0, 0], // Open, High, Low, Close
             PVM: 0,
-            FourteenDayVol: 0,
-            FourteenATRAvg: 0,
-            RelativeVolume: 0,
+            FourteenDayAvgVol: 0,
+            FourteenDayAvgATR: 0,
         },
     ])
+
     const [selectedCompany, setSelectedCompany] = useState<StockItemInterface>({
         Ticker: '',
-        OHLC: 0,
+        OHLC: [0, 0, 0, 0],
         PVM: 0,
-        FourteenDayVol: 0,
-        FourteenATRAvg: 0,
-        RelativeVolume: 0,
+        FourteenDayAvgVol: 0,
+        FourteenDayAvgATR: 0,
     })
     const [cardPosition, setCardPosition] = useState<{ x: number; y: number }>({
         x: 0,
@@ -27,20 +26,10 @@ const StockList = () => {
     })
 
     const fetchData = async () => {
-        const data: [StockItemInterface] =
-            await window.electron.ipcRenderer.invoke('readJSON')
-
-        setData(data)
+        const realData = await window.electron.ipcRenderer.invoke('fetchData')
+        //This is the issue here, cant get the the data in JSON, everything else is in place
+        console.log(Object.entries(realData))
     }
-
-    const statNames = [
-        'Ticker',
-        'OHLC',
-        'Pre Market Volume',
-        '14 Day Avg Volume',
-        '14 Day ATR',
-        'Relative Volume',
-    ]
 
     useEffect(() => {
         fetchData()
@@ -59,13 +48,23 @@ const StockList = () => {
         setSelectedCompany(company)
     }
 
+    console.log(data)
+
     return (
         <div className="StockListPage">
             <div className="table">
+                <h1>Market Data</h1>
                 <div className="statNames">
-                    {statNames.map((stat, index) => (
-                        <h3 key={index}>{stat}</h3>
-                    ))}
+                    <h3>Ticker</h3>
+                    <div className="ohlc">
+                        <h3>O</h3>
+                        <h3>H</h3>
+                        <h3>L</h3>
+                        <h3>C</h3>
+                    </div>
+
+                    <h3>14 Day Avg Vol</h3>
+                    <h3>14 Day Avg ATR</h3>
                 </div>
 
                 {data.map((company, index) => (
@@ -78,22 +77,17 @@ const StockList = () => {
                         <h5 style={{ color: '#5ecadd', fontWeight: 'bolder' }}>
                             {company.Ticker}
                         </h5>
-                        <h5>{company.OHLC}</h5>
-                        <h5>{company.PVM}</h5>
-                        <h5>{company.FourteenATRAvg}</h5>
-                        <h5>{company.FourteenDayVol}</h5>
-                        <h5>{company.RelativeVolume}</h5>
+                        <div className="ohlc">
+                            {company.OHLC.map((value) => {
+                                return <h5>{value}</h5>
+                            })}
+                        </div>
+                        <h5>AAA</h5>
+                        <h5>AAA</h5>
                     </div>
                 ))}
             </div>
-            <StockCard
-                Ticker={selectedCompany.Ticker}
-                OHLC={selectedCompany.OHLC}
-                PVM={selectedCompany.PVM}
-                FourteenDayVol={selectedCompany.FourteenDayVol}
-                FourteenATRAvg={selectedCompany.FourteenATRAvg}
-                RelativeVolume={selectedCompany.RelativeVolume}
-            />
+            <StockCard selectedCompany={selectedCompany} />
         </div>
     )
 }

@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react'
 import { StockItemInterface } from '../interfaces'
 
-const StockCard = (selectedCompany: StockItemInterface) => {
+interface StockCardProps {
+    selectedCompany: StockItemInterface
+}
+
+const StockCard = ({ selectedCompany }: StockCardProps) => {
     return (
-        <div>
+        <div className="statCardContainer">
             {selectedCompany && (
                 <div className="statCard">
                     <h2>Company Stats</h2>
@@ -13,21 +16,8 @@ const StockCard = (selectedCompany: StockItemInterface) => {
                         </p>
                         <p>
                             <strong>14 Day ATR:</strong>{' '}
-                            {selectedCompany.FourteenATRAvg.toLocaleString(
-                                'en-US'
-                            )}
-                        </p>
-                        <p>
-                            <strong>14 Day Avg Volume:</strong>{' '}
-                            {selectedCompany.FourteenDayVol.toLocaleString(
-                                'en-US'
-                            )}
-                        </p>
-                        <p>
-                            <strong>Relative Volume:</strong>{' '}
-                            {selectedCompany.RelativeVolume.toLocaleString(
-                                'en-US'
-                            )}
+                            {selectedCompany.OHLC[3].toLocaleString('en-US')}{' '}
+                            {/* Assuming OHLC[3] is Close price */}
                         </p>
                     </div>
                 </div>

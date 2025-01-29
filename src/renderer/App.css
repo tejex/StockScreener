@@ -79,9 +79,10 @@ h5 {
   position: fixed;
   width: 20%; /* Adjust this width as necessary */
   top: 10%; /* Slightly offset from the top of the screen */
-  left: calc(80% + 20px); /* Position it to the right of the table, adjust for any spacing */
+  left: calc(80%); /* Position it to the right of the table, adjust for any spacing */
   background-color: #252628; /* Dark background for the card */
   padding: 15px;
+  margin-right: 5%;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -99,4 +100,9 @@ h5 {
 .statCard p {
   margin: 5px 0;
   font-size: 14px;
+}
+
+.ohlc{
+  display: flex;
+  gap: 20px;
 }

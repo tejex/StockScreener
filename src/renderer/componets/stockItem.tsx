@@ -4,21 +4,18 @@ import { StockItemInterface } from '../interfaces'
 const StockItem = ({}: StockItemInterface) => {
     const [data, setData] = useState<StockItemInterface>({
         Ticker: '',
-        OHLC: 0,
+        OHLC: [0, 0, 0, 0],
         PVM: 0,
-        FourteenDayVol: 0,
-        FourteenATRAvg: 0,
-        RelativeVolume: 0,
+        FourteenDayAvgVol: 0,
+        FourteenDayAvgATR: 0,
     })
+
+    console.log(data)
 
     return (
         <div>
             <p>{data.Ticker}</p>
             <p>{data.OHLC}</p>
-            <p>{data.PVM}</p>
-            <p>{data.FourteenDayVol}</p>
-            <p>{data.FourteenATRAvg}</p>
-            <p>{data.RelativeVolume}</p>
         </div>
     )
 }

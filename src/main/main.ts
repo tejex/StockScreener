@@ -129,25 +129,6 @@ app.on('window-all-closed', () => {
 
 app.whenReady()
     .then(() => {
-        const pythonProcess = spawn('python', ['src/main/python/filter.py'])
-        // console.log('Python Process:', pythonProcess)
-
-        pythonProcess.stdout.on('data', (data) => {
-            console.log(`Python stdout: ${data.toString()}`)
-        })
-
-        pythonProcess.stderr.on('data', (data) => {
-            console.error(`Python stderr: ${data.toString()}`)
-        })
-
-        pythonProcess.on('close', (code) => {
-            console.log(`Python process exited with code ${code}`)
-        })
-
-        pythonProcess.on('error', (err) => {
-            console.error('Failed to start Python process:', err)
-        })
-
         ipcMain.handle('readJSON', async () => {
             const fs = require('fs')
             const data = JSON.parse(
@@ -169,9 +150,10 @@ app.whenReady()
                 const response = await axios.get(
                     'http://127.0.0.1:5000/getDailyData'
                 )
+                // console.log('ANSWER:', response)
                 return response.data // Return data to the renderer
             } catch (error) {
-                console.error('Error fetching data:', error)
+                // console.error('Error fetching data:', error)
                 return { error: 'Failed to fetch data from backend' }
             }
         })
